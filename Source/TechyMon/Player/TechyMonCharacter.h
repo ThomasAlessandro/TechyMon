@@ -56,7 +56,7 @@ private:
     float WalkSpeed = 200.f;
 
     UPROPERTY(EditAnywhere, Category = "Camera")
-    float CameraOrthoWidth = 512.f;
+    float CameraOrthoWidth = 2048.f;
 
     EFacingDirection CurrentFacing = EFacingDirection::Down;
     FVector2D PreviousInput = FVector2D::ZeroVector;

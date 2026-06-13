@@ -13,7 +13,7 @@ ATechyMonCharacter::ATechyMonCharacter()
     SpringArm->SetupAttachment(RootComponent);
     SpringArm->TargetArmLength = 500.f;
     SpringArm->bDoCollisionTest = false;
-    SpringArm->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));
+    SpringArm->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));
     SpringArm->bInheritPitch = false;
     SpringArm->bInheritYaw = false;
     SpringArm->bInheritRoll = false;
