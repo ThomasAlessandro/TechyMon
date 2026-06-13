@@ -14,13 +14,11 @@ ATechyMonCharacter::ATechyMonCharacter()
     SpringArm->TargetArmLength = 500.f;
     SpringArm->bDoCollisionTest = false;
     SpringArm->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));
-    SpringArm->bInheritPitch = false;
-    SpringArm->bInheritYaw = false;
-    SpringArm->bInheritRoll = false;
-
-    // Camera — orthographic, top-down
+    // Camera — attached directly to root, positioned in -Y looking in +Y (Paper2D front view)
     Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-    Camera->SetupAttachment(SpringArm);
+    Camera->SetupAttachment(RootComponent);
+    Camera->SetRelativeLocation(FVector(0.f, -500.f, 0.f));
+    Camera->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));
     Camera->ProjectionMode = ECameraProjectionMode::Orthographic;
     Camera->OrthoWidth = CameraOrthoWidth;
 
