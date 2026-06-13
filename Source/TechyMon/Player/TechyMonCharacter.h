@@ -52,6 +52,12 @@ private:
     UPROPERTY(EditAnywhere, Category = "Input")
     TObjectPtr<UInputAction> MoveAction;
 
+    UPROPERTY(EditAnywhere, Category = "Movement")
+    float WalkSpeed = 200.f;
+
+    UPROPERTY(EditAnywhere, Category = "Camera")
+    float CameraOrthoWidth = 512.f;
+
     EFacingDirection CurrentFacing = EFacingDirection::Down;
     FVector2D PreviousInput = FVector2D::ZeroVector;
 

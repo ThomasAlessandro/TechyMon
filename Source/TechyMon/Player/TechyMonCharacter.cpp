@@ -14,18 +14,21 @@ ATechyMonCharacter::ATechyMonCharacter()
     SpringArm->TargetArmLength = 0.f;
     SpringArm->bDoCollisionTest = false;
     SpringArm->SetRelativeRotation(FRotator(-90.f, 0.f, 0.f));
+    SpringArm->bInheritPitch = false;
+    SpringArm->bInheritYaw = false;
+    SpringArm->bInheritRoll = false;
 
     // Camera — orthographic, top-down
     Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
     Camera->SetupAttachment(SpringArm);
     Camera->ProjectionMode = ECameraProjectionMode::Orthographic;
-    Camera->OrthoWidth = 512.f;
+    Camera->OrthoWidth = CameraOrthoWidth;
 
     // Movement — top-down 2D, no gravity, constrained to XY plane
     GetCharacterMovement()->GravityScale = 0.f;
-    GetCharacterMovement()->MaxWalkSpeed = 200.f;
+    GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
     GetCharacterMovement()->bConstrainToPlane = true;
-    GetCharacterMovement()->SetPlaneConstraintNormal(FVector(0.f, 0.f, 1.f));
+    GetCharacterMovement()->SetPlaneConstraintNormal(FVector::UpVector);
 }
 
 void ATechyMonCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -50,6 +53,8 @@ void ATechyMonCharacter::HandleMove(const FInputActionValue& Value)
     if (bHasX && FMath::IsNearlyZero(PreviousInput.X)) LastPressedAxis = ELastAxis::Horizontal;
     if (bHasY && FMath::IsNearlyZero(PreviousInput.Y)) LastPressedAxis = ELastAxis::Vertical;
     PreviousInput = Input;
+    // LastPressedAxis intentionally persists across key releases — last-direction bias
+    // is standard Pokémon-style behaviour (re-pressing the same key continues that direction).
 
     // Resolve diagonal input — only one axis moves at a time
     FVector2D MoveInput = FVector2D::ZeroVector;
