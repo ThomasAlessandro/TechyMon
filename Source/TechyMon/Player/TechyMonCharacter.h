@@ -31,10 +31,10 @@ protected:
     virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
 private:
-    UPROPERTY(VisibleAnywhere)
+    UPROPERTY(VisibleAnywhere, Category = "Components")
     TObjectPtr<USpringArmComponent> SpringArm;
 
-    UPROPERTY(VisibleAnywhere)
+    UPROPERTY(VisibleAnywhere, Category = "Components")
     TObjectPtr<UCameraComponent> Camera;
 
     UPROPERTY(EditAnywhere, Category = "Sprites")
