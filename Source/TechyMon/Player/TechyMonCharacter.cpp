@@ -11,9 +11,9 @@ ATechyMonCharacter::ATechyMonCharacter()
     // Spring arm — zero length, no 3D collision, looks straight down
     SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
     SpringArm->SetupAttachment(RootComponent);
-    SpringArm->TargetArmLength = 0.f;
+    SpringArm->TargetArmLength = 500.f;
     SpringArm->bDoCollisionTest = false;
-    SpringArm->SetRelativeRotation(FRotator(-90.f, 0.f, 0.f));
+    SpringArm->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));
     SpringArm->bInheritPitch = false;
     SpringArm->bInheritYaw = false;
     SpringArm->bInheritRoll = false;
@@ -28,7 +28,7 @@ ATechyMonCharacter::ATechyMonCharacter()
     GetCharacterMovement()->GravityScale = 0.f;
     GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
     GetCharacterMovement()->bConstrainToPlane = true;
-    GetCharacterMovement()->SetPlaneConstraintNormal(FVector::UpVector);
+    GetCharacterMovement()->SetPlaneConstraintNormal(FVector(0.f, 1.f, 0.f));
 }
 
 void ATechyMonCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -69,7 +69,7 @@ void ATechyMonCharacter::HandleMove(const FInputActionValue& Value)
 
     if (!MoveInput.IsNearlyZero())
     {
-        AddMovementInput(FVector(MoveInput.X, MoveInput.Y, 0.f));
+        AddMovementInput(FVector(MoveInput.X, 0.f, MoveInput.Y));
 
         if (!FMath::IsNearlyZero(MoveInput.Y))
             CurrentFacing = (MoveInput.Y > 0.f) ? EFacingDirection::Up : EFacingDirection::Down;
