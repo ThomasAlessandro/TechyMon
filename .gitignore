@@ -15,7 +15,15 @@ Saved/
 # Build artifacts
 Build/
 
+# VS Code
+.vscode/
+*.code-workspace
+
 # OS
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# Plugins
+.superpowers
+

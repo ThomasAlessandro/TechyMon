@@ -29,6 +29,14 @@ ATechyMonCharacter::ATechyMonCharacter()
     GetCharacterMovement()->SetPlaneConstraintNormal(FVector(0.f, 1.f, 0.f));
 }
 
+void ATechyMonCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+    // Force camera to -Y position looking in +Y — overrides any stale Blueprint-serialized transform
+    Camera->SetRelativeLocation(FVector(0.f, -500.f, 0.f));
+    Camera->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));
+}
+
 void ATechyMonCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
