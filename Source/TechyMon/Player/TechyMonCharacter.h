@@ -54,7 +54,7 @@ private:
     TObjectPtr<UInputAction> MoveAction;
 
     UPROPERTY(EditAnywhere, Category = "Movement")
-    float WalkSpeed = 200.f;
+    float WalkSpeed = 200.f;  // applied to MaxFlySpeed (MOVE_Flying mode)
 
     UPROPERTY(EditAnywhere, Category = "Camera")
     float CameraOrthoWidth = 2048.f;

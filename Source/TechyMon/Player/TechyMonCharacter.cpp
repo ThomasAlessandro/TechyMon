@@ -24,7 +24,8 @@ ATechyMonCharacter::ATechyMonCharacter()
 
     // Movement — top-down 2D, no gravity, constrained to XY plane
     GetCharacterMovement()->GravityScale = 0.f;
-    GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+    GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+    GetCharacterMovement()->MaxFlySpeed = WalkSpeed;
     GetCharacterMovement()->bConstrainToPlane = true;
     GetCharacterMovement()->SetPlaneConstraintNormal(FVector(0.f, 1.f, 0.f));
 }
@@ -32,7 +33,8 @@ ATechyMonCharacter::ATechyMonCharacter()
 void ATechyMonCharacter::BeginPlay()
 {
     Super::BeginPlay();
-    // Force camera to -Y position looking in +Y — overrides any stale Blueprint-serialized transform
+    // Super::BeginPlay resets movement mode to DefaultLandMovementMode — re-apply flying here
+    GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
     Camera->SetRelativeLocation(FVector(0.f, -500.f, 0.f));
     Camera->SetRelativeRotation(FRotator(0.f, 90.f, 0.f));
 }
@@ -83,6 +85,10 @@ void ATechyMonCharacter::HandleMove(const FInputActionValue& Value)
             CurrentFacing = (MoveInput.X > 0.f) ? EFacingDirection::Right : EFacingDirection::Left;
 
         GetSprite()->SetFlipbook(FlipbookForDirection());
+    }
+    else
+    {
+        GetCharacterMovement()->StopMovementImmediately();
     }
 }
 
